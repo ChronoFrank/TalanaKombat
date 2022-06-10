@@ -29,7 +29,7 @@ class Game:
         return selected_champion
 
     def add_player(self, name: str, **kwargs):
-        moves = [' '.join(x) for x in zip(kwargs.get('movements'), kwargs.get('hits'))]
+        moves = [''.join(x) for x in zip(kwargs.get('movements'), kwargs.get('hits'))]
         selected_champ = self.find_selected_champion(kwargs.get('character_name'))
         player = Player(
             name=name,
@@ -59,10 +59,56 @@ class Game:
                 self.players.reverse()
         elif player1_moves.get("combinations") > player2_moves.get("combinations"):
             self.players.reverse()
-        print(player1_moves, player2_moves)
-        print(f"Player {self.players[0]} will start the match")
+        print(f"{self.players[0]} will start the match")
+
+    def is_game_over(self):
+        if True in [player.end_flag for player in self.players]:
+            return True
+        else:
+            return False
 
     def play_game(self):
         self.define_players_order()
+        player = self.players[0]
+        other_player = self.players[1]
+        while not self.is_game_over():
+            print('-' * 30)
+            print(f"{player.name}'s turn to move")
+            attack = player.make_move()
+            if attack:
+                other_player.take_damage(attack.energy_points)
+                print(f"{other_player.selected_champion.name} has"
+                      f" {other_player.check_life_points()} life points remaining")
+            if other_player.check_life_points() == 0:
+                print('\n')
+                print('-' * 30)
+                print(f"Congratulations {player.name} you are the winner")
+                break
+            print('-'*30)
+            print(f"{other_player.name}'s turn to move")
+            attack = other_player.make_move()
+            if attack:
+                player.take_damage(attack.energy_points)
+                print(f"{player.selected_champion.name} has"
+                      f" {player.check_life_points()} life points remaining")
 
+            if player.check_life_points() == 0:
+                print('\n')
+                print('-' * 30)
+                print(f"Congratulations {other_player.name} you are the winner")
 
+        if self.is_game_over() and player.check_life_points() > 0 and other_player.check_life_points() > 0:
+            if player.check_life_points() == other_player.check_life_points():
+                print('\n')
+                print('-' * 30)
+                print(f"The match is a tie")
+            elif player.check_life_points() < other_player.check_life_points():
+                print('\n')
+                print('-' * 30)
+                print(f"Congratulations {other_player.name}"
+                      f" you are the winner because you have higher life points")
+            else:
+                print('\n')
+                print('-' * 30)
+                print(f"Congratulations {player.name} "
+                      f"you are the winner because you have higher life points")

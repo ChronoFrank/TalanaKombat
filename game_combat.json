@@ -1,11 +1,11 @@
 {
   "player1": {
-    "character_name": "arnaldor_shuatseneguer",
-    "movements":["D","DSD","S","DSD","SD"],
+    "character_name": "tony_stalone",
+    "movements":["D","DSD"],
     "hits":["K","P","","K","P"]
   },
   "player2": {
-    "character_name": "tony_stalone",
+    "character_name": "arnaldor_shuatseneguer",
     "movements":["SA","SA","SA","ASA","SA"],
     "hits":["K","","K","P","P"]
   }

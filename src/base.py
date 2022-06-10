@@ -1,7 +1,15 @@
 from typing import List
+from enum import Enum
 
 MOVES = ('W', 'A', 'S', 'D')
 ACTIONS = ('P', 'K')
+
+
+class MovesMapping(Enum):
+    W = "Moves one space up"
+    A = "Moves one space to the left"
+    S = "Moves one space down "
+    D = "Moves one space to the right"
 
 
 class ChampionTechniques:
@@ -20,7 +28,7 @@ class ChampionTechniques:
         self.combination = kwargs.get('combination')
 
     def __str__(self):
-        return f"{self.name} deals {self.energy_points} damage"
+        return f"use {self.name} that deals {self.energy_points} damage"
 
 
 class GameChampion:
@@ -39,7 +47,13 @@ class GameChampion:
         if self.is_technique(move):
             return self.techniques.get(move)
         else:
-            return move
+            aux = None
+            for _move in move:
+                if self.techniques.get(_move):
+                    aux = self.techniques.get(_move)
+                else:
+                    print(f"{self.name} {MovesMapping[_move].value}")
+            return aux
 
     def is_technique(self, move):
         return True if self.techniques.get(move) else False
@@ -50,6 +64,7 @@ class Player:
 
     name: str
     life_points: int = 6
+    end_flag: bool = False
     selected_champion: GameChampion
     moves: List[str] = []
 
@@ -57,6 +72,7 @@ class Player:
         self.name = name
         self.selected_champion = champion
         self.moves = moves
+        self.iter_moves = iter(self.moves)
         print(f"{name} selects champion {champion.name}")
 
     def __str__(self):
@@ -67,11 +83,11 @@ class Player:
 
     def take_damage(self, hit_points: int) -> int:
         remaining_points = self.life_points - hit_points
-        if remaining_points < 0:
+        if remaining_points <= 0:
+            self.end_flag = True
             self.life_points = 0
         else:
             self.life_points = remaining_points
-
         return self.life_points
 
     def count_first_move(self) -> dict[str, int]:
@@ -90,5 +106,14 @@ class Player:
         return {"combinations": combinations, "movements": movements, "attacks": attacks}
 
     def make_move(self):
-        move = next(self.moves)
-        attack = self.selected_champion.attack(move)
+        try:
+            move = next(self.iter_moves)
+            attack = self.selected_champion.attack(move)
+            if attack:
+                print(f'{self.selected_champion.name} {attack}')
+                return attack
+        except StopIteration:
+            self.end_flag = True
+
+
+
