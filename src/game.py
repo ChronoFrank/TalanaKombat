@@ -1,10 +1,13 @@
 from .base import GameChampion, Player
 from typing import List, Any
+from .utils import BASE_JSON_CHAMPION_FILE_PATH, read_json_file
 
 
 class Game:
-    players: List[Player]
-    game_champion_list = List[GameChampion]
+    players: List[Player] = []
+    game_champion_list: List[GameChampion] = []
+    end_game = False
+    victory = None
 
     def __init__(self, game_data: dict):
         print("Welcome to TalanaKombat")
@@ -13,7 +16,8 @@ class Game:
         print("Creating match")
         self.create_game(game_data)
 
-    def load_champions(self, data: List[dict[str, Any]]) -> None:
+    def load_champions(self) -> None:
+        data = read_json_file(file_path=BASE_JSON_CHAMPION_FILE_PATH)
         for item in data:
             self.game_champion_list.append(GameChampion(**item))
         print("Champions information successfully loaded")
@@ -40,5 +44,25 @@ class Game:
         player2 = data.get("player2")
         self.add_player(name='Player2', **player2)
 
+    def define_players_order(self):
+        player1_moves = self.players[0].count_first_move()
+        player2_moves = self.players[1].count_first_move()
+        if player1_moves.get("combinations") == player2_moves.get("combinations"):
+            if player1_moves.get("movements") == player2_moves.get("movements"):
+                if (
+                        player1_moves.get("attacks") != player2_moves.get("attacks")
+                        and
+                        player1_moves.get("attacks") > player2_moves.get("attacks")
+                ):
+                    self.players.reverse()
+            elif player1_moves.get("movements") > player2_moves.get("movements"):
+                self.players.reverse()
+        elif player1_moves.get("combinations") > player2_moves.get("combinations"):
+            self.players.reverse()
+        print(player1_moves, player2_moves)
+        print(f"Player {self.players[0]} will start the match")
+
     def play_game(self):
-        pass
+        self.define_players_order()
+
+

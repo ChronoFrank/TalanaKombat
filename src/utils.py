@@ -2,10 +2,11 @@ import os
 import json
 import requests
 
-BASE_JSON_FILE_PATH = os.path.join("src", "../game_champions.json")
+BASE_JSON_CHAMPION_FILE_PATH = os.path.join("src", "../game_champions.json")
+BASE_JSON_GAME_FILE_PATH = os.path.join("src", "../game_combat.json")
 
 
-def read_json_file(file_path: str = BASE_JSON_FILE_PATH):
+def read_json_file(file_path: str):
     path = file_path
     with open(path, 'r', encoding='utf-8') as json_file:
         try:
