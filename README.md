@@ -2,6 +2,37 @@
 Small challenge implementation that aims to narrate actions in
 a mini combat game using POO and python scripts.
 
+## Python version
+I'm using python 3.9 for this project but it should work with python>=3.5
+
+## Instructions for development:
+
+#### 1. Create virtualenv:
+```
+user@pc:/home$ virtualenv -p=python3 venv
+```
+#### 2. activate virtualenv:
+```
+user@pc:/home$ source venv/bin/activate
+```
+#### 3. Clone the repository:
+```
+git clone git@github.com:ChronoFrank/TalanaKombat.git 
+
+or 
+
+git clone https://github.com/ChronoFrank/TalanaKombat.git
+```
+#### 4. Install dependencies:
+```
+(venv) cd TalanaKombat
+pip install -r requirements.txt
+```
+#### 5. run script:
+```
+(venv) Talana
+```
+
 # The challenge
 Talana Kombat is a game where 2 characters fight each other to the death.
 Each character has 2 special hits that are executed with 
