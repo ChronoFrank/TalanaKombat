@@ -114,6 +114,3 @@ class Player:
                 return attack
         except StopIteration:
             self.end_flag = True
-
-
-

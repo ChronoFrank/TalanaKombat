@@ -30,6 +30,9 @@ class Game:
 
     def add_player(self, name: str, **kwargs):
         moves = [''.join(x) for x in zip(kwargs.get('movements'), kwargs.get('hits'))]
+        max_move = max(moves, key=len)
+        if len(max_move) > 5:
+            raise ValueError("The movements has to be 5 length string max")
         selected_champ = self.find_selected_champion(kwargs.get('character_name'))
         player = Player(
             name=name,
@@ -101,7 +104,7 @@ class Game:
             if player.check_life_points() == other_player.check_life_points():
                 print('\n')
                 print('-' * 30)
-                print(f"The match is a tie")
+                print("The match is a tie")
             elif player.check_life_points() < other_player.check_life_points():
                 print('\n')
                 print('-' * 30)
