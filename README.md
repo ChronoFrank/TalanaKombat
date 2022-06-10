@@ -14,23 +14,20 @@ user@pc:/home$ virtualenv -p=python3 venv
 #### 2. activate virtualenv:
 ```
 user@pc:/home$ source venv/bin/activate
+(venv) user@pc:/home$
 ```
 #### 3. Clone the repository:
 ```
-git clone git@github.com:ChronoFrank/TalanaKombat.git 
-
-or 
-
-git clone https://github.com/ChronoFrank/TalanaKombat.git
+(venv)user@pc:/home$ git clone git@github.com:ChronoFrank/TalanaKombat.git
 ```
 #### 4. Install dependencies:
 ```
-(venv) cd TalanaKombat
-pip install -r requirements.txt
+(venv) user@pc:/home$ cd TalanaKombat
+(venv) user@pc:/home/TalanaKombat$ pip install -r requirements.txt
 ```
 #### 5. run script:
 ```
-(venv) Talana
+(venv) user@pc:/home/TalanaKombat$ python main.py
 ```
 
 # The challenge
