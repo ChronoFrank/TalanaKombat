@@ -1,0 +1,52 @@
+[
+  {
+    "name": "arnaldor_shuatseneguer",
+    "techniques": [
+      {
+        "name":  "Remuyuken",
+        "energy_points":  3,
+        "combination":  "SAK"
+      },
+      {
+        "name":  "Taladoken",
+        "energy_points":  2,
+        "combination":  "ASAP"
+      },
+      {
+        "name":  "punch",
+        "energy_points":  1,
+        "combination":  "P"
+      },
+      {
+        "name":  "kick",
+        "energy_points":  1,
+        "combination":  "K"
+      }
+    ]
+  },
+  {
+    "name": "tony_stalone",
+    "techniques": [
+      {
+        "name":  "Taladoken",
+        "energy_points":  3,
+        "combination":  "DSDP"
+      },
+      {
+        "name":  "Remuyuken",
+        "energy_points":  2,
+        "combination":  "SDK"
+      },
+      {
+        "name":  "punch",
+        "energy_points":  1,
+        "combination":  "P"
+      },
+      {
+        "name":  "kick",
+        "energy_points":  1,
+        "combination":  "K"
+      }
+    ]
+  }
+]
